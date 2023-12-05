@@ -1,5 +1,5 @@
 # Usa una imagen base de Python
-FROM python:3.8-slim
+FROM python:3.9-slim
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -11,11 +11,11 @@ COPY . /app/
 ENV NIXPACKS_PATH /opt/venv/bin:$NIXPACKS_PATH
 
 # Dividir el comando RUN para facilitar la lectura y depuración
-RUN --mount=type=cache,id=s/f12e5f47-88c1-4612-8d26-10f175fddb0f-/root/cache/pip,target=/root/.cache/pip \
-    python -m venv --copies /opt/venv
+RUN . /opt/venv/bin/activate && pip install --upgrade pip
 
-# Usa Bash para activar el entorno virtual y luego instala las dependencias
-RUN . /opt/venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
+# Instala numpy primero y luego el resto de las dependencias
+RUN . /opt/venv/bin/activate && pip install numpy>=1.20.0
+RUN . /opt/venv/bin/activate && pip install --no-cache-dir -r requirements.txt
 
 # Especifica el comando predeterminado a ejecutar cuando se inicie el contenedor
 CMD ["python", "index.py"]
