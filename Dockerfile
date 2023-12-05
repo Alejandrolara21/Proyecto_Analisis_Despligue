@@ -14,8 +14,8 @@ ENV NIXPACKS_PATH /opt/venv/bin:$NIXPACKS_PATH
 RUN python -m venv /opt/venv
 SHELL ["/bin/bash", "-c", "source /opt/venv/bin/activate && pip install --upgrade pip"]
 
-# Instala numpy primero y luego el resto de las dependencias
-RUN pip install numpy>=1.20.0 --no-cache-dir -r requirements.txt
+# Instala Flask 3.0.0 y otras dependencias
+RUN pip install Flask==3.0.0 numpy>=1.20.0 --no-cache-dir -r requirements.txt
 
 # Especifica el comando predeterminado a ejecutar cuando se inicie el contenedor
 CMD ["python", "index.py"]
