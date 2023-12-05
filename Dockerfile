@@ -15,7 +15,7 @@ RUN python -m venv /opt/venv
 SHELL ["/bin/bash", "-c", "source /opt/venv/bin/activate && pip install --upgrade pip"]
 
 # Instala Flask 3.0.0 y otras dependencias
-RUN pip install Flask==3.0.0 numpy>=1.20.0 --no-cache-dir -r requirements.txt
+RUN pip install Flask numpy>=1.20.0 --no-cache-dir -r requirements.txt
 
 # Especifica el comando predeterminado a ejecutar cuando se inicie el contenedor
 CMD ["python", "index.py"]
